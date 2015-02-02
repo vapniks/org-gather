@@ -11,3 +11,18 @@ to obtain the property values for each header of the final property tree.
 User should be able to specify column headers, with corresponding functions used to obtain the values for each column.
 The `org-gather-into-table' command should then loop over some objects (e.g. buffers, directories, items in list),
 to obtain the column entries for each row of the final table.
+*** org-gather-items
+This should be a user option containing alists for different sets of
+items. Each alist will be a list of (NAME . FUNC) pairs where NAME is
+the name of the property/column and FUNC is a function for obtaining
+the corresponding value. This will allow the user to save data
+gathering methods for reuse. Each of the alists should also have an
+associated name (user specified), which can be passed to either
+`org-gather-into-property-tree' or `org-gather-into-table' to indicate
+which stored method to use.
+
+* update
+;; (vc-checkin
+   '("/home/ben/programming_projects/org-gather/readme.org") 'Git nil
+   "update")
+;; (magit-push)
