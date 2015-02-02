@@ -1,1 +1,4 @@
 * Plan
+** Overview
+Two main functions: org-gather-into-table, org-gather-into-property-tree
+Each of which loops over buffers to gather information for the specified columns/properties respectively.
