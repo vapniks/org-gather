@@ -22,7 +22,6 @@ associated name (user specified), which can be passed to either
 which stored method to use.
 
 * update
-;; (vc-checkin
-   '("/home/ben/programming_projects/org-gather/readme.org") 'Git nil
-   "update")
-;; (magit-push)
+(progn (vc-checkin
+'("/home/ben/programming_projects/org-gather/readme.org") 'Git nil
+"update") (magit-push))
