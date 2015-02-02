@@ -1,25 +1,57 @@
 * Plan
 ** Overview
-Two main commands: `org-gather-into-table', `org-gather-into-property-tree'\\
-Each of these functions loops over buffers to gather information for the specified columns/properties respectively.
-** Specification
-*** org-gather-into-property-tree
-User should be able to specify org properties, with corresponding functions used to obtain the values for each property.
-The `org-gather-into-property-tree' command should then loop over some objects (e.g. buffers, directories, items in list),
-to obtain the property values for each header of the final property tree.
-*** org-gather-into-table
-User should be able to specify column headers, with corresponding functions used to obtain the values for each column.
-The `org-gather-into-table' command should then loop over some objects (e.g. buffers, directories, items in list),
-to obtain the column entries for each row of the final table.
+The general idea is to have functions for gathering data from various places and then displaying it in an org table or tree.
+The rows/headers of the output table/tree correspond to different items, and the columns/properties correspond to different
+pieces of data for each item. 
+The code is split into two tasks: gathering data and displaying data. These are explained below.
+** Gathering functions
+These functions take 2 arguments:
+ 1) a list of items or a single item from which to gather the data
+ 2) a list specifying column/property names and how to obtain the corresponding values. Details [[id:100cd464-c3d2-43e5-aa0f-a441e175c10d][below]].
+
+Return value: a list of lists which can be used by the display functions for displaying the data.
+Each list in the output should contain the values for the corresponding table row or header. The first item of each list
+will be used as the header name in the case where a tree is output.
+*** Details of 2nd input
+    :PROPERTIES:
+    :ID:       100cd464-c3d2-43e5-aa0f-a441e175c10d
+    :END:
+A list of 
+*** org-gather-from-buffers
+Given a list of buffers, 
+*** org-gather-from-single-buffer
+
+*** org-gather-from-comint-outputs
+
+*** org-gather-from-gnus-articles
+Use `gnus-summary-ext-iterate-articles-safely' to loop over articles corresponding to list of article numbers.
+*** org-gather-from-urls
+download each url and visit it, then use same method as `org-gather-from-buffers'
+*** org-gather-from-list
+Apply functions to each item in list in order to get values.
+*** org-gather-from-directories
+Application of org-gather-from-list
+
+** Displaying functions
+Each of these functions should take 2 arguments: 
+ 1) a list of column/property names
+ 2) a list of value lists. Each value list contains the column/property values for a row/header in the same order
+   as the 1st argument. In the case of `org-gather-create-tree' there will be an extra first element in each
+   list which is the title of the header.
+*** org-gather-create-table
+I have already written this function.
+*** org-gather-create-tree
+Given a list of property names and a list of value lists create org headers for each list with appropriate names & properties.
+** misc
 *** org-gather-items
-This should be a user option containing alists for different sets of
-items. Each alist will be a list of (NAME . FUNC) pairs where NAME is
-the name of the property/column and FUNC is a function for obtaining
-the corresponding value. This will allow the user to save data
-gathering methods for reuse. Each of the alists should also have an
-associated name (user specified), which can be passed to either
-`org-gather-into-property-tree' or `org-gather-into-table' to indicate
-which stored method to use.
+This should be a user option containing alists for different sets of items. 
+Each alist will be a list of (NAME . VALUE) pairs where NAME is the name of the property/column, 
+and VALUE defines how to obtain the value of the property/column.
+VALUE could be a function, a regular expression, or a list indicating a region/rectangle.
+This will allow the user to save data gathering methods for reuse. Each of the alists should also have an
+associated name (user specified), which can be passed to either `org-gather-into-property-tree' or `org-gather-into-table' 
+to indicate which stored method to use.
+
 
 * update
 (progn (vc-checkin
