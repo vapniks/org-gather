@@ -1,4 +1,13 @@
 * Plan
 ** Overview
-Two main functions: `org-gather-into-table', `org-gather-into-property-tree'\\
-Each of which loops over buffers to gather information for the specified columns/properties respectively.
+Two main commands: `org-gather-into-table', `org-gather-into-property-tree'\\
+Each of these functions loops over buffers to gather information for the specified columns/properties respectively.
+** Specification
+*** org-gather-into-property-tree
+User should be able to specify org properties, with corresponding functions used to obtain the values for each property.
+The `org-gather-into-property-tree' command should then loop over some objects (e.g. buffers, directories, items in list),
+to obtain the property values for each header of the final property tree.
+*** org-gather-into-table
+User should be able to specify column headers, with corresponding functions used to obtain the values for each column.
+The `org-gather-into-table' command should then loop over some objects (e.g. buffers, directories, items in list),
+to obtain the column entries for each row of the final table.
