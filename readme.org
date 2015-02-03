@@ -7,51 +7,49 @@ The code is split into two tasks: gathering data and displaying data. These are 
 ** Gathering functions
 These functions take 2 arguments:
  1) a list of items or a single item from which to gather the data
- 2) a list specifying column/property names and how to obtain the corresponding values. Details [[id:100cd464-c3d2-43e5-aa0f-a441e175c10d][below]].
+ 2) a list specifying column/property names and how to obtain the corresponding values. Details below.
 there may also be other arguments (see the function descriptions below).
 
 Return value: a list of lists which can be used by the display functions for displaying the data.
 Each list in the output should contain the values for the corresponding table row or header. 
-*** Details of 2nd input
-    :PROPERTIES:
-    :ID:       100cd464-c3d2-43e5-aa0f-a441e175c10d
-    :END:
-A list of 
-
-(org-gather-from-buffers '(buf1 buf2 buf3) '("name" '(THIS . "abc\\([0-9]+\\)def") '(THAT . '(1 2 3 4 5)) '(THE . "")))
 *** org-gather-from-buffers
 Arguments:
  1) List of buffers
  2) alist whose keys are names of properties/columns, and whose values are sexps to be evaluated in the buffer
-    and which return the associated string value or nil if no appropriate value could be found
+    and which return the associated string value or nil if no
+    appropriate value could be found
  3) an optional argument which can take these values & meanings:
     - nil : default value, move to next buffer when all properties have been processed
     - number N : in each buffer loop over properties N times (so that each buffer produces N output lists)
     - anything else : in each buffer loop over properties repeatedly until a nil value is returned for one of the properties,
                       or point-max is reached in buffer
 *** org-gather-from-single-buffer
-This works like org-gather-from-buffers with a single buffer and the 3rd argument set to t.
-Arguments:
+This works like org-gather-from-buffers with a single buffer and the
+3rd argument set to t. Arguments:
  1) List of buffers
  2) alist whose keys are names of properties/columns, and whose values are sexps to be evaluated in the buffer
-    and which return the associated string value or nil if no appropriate value could be found
+    and which return the associated string value or nil if no
+    appropriate value could be found
  3) an optional argument which can take these values & meanings:
     - nil : default value, loop over properties repeatedly until a nil value is returned for one of the properties, 
             or point-max is reached in buffer
     - number N : loop over properties N times (so that each buffer produces N output lists)
     - anything else : error
 *** org-gather-from-comint-outputs
-This works like org-gather-from-buffers but using succesive comint output regions of the current buffer instead 
-(starting with the output region following point).
-Arguments:
+This works like org-gather-from-buffers but using succesive comint
+output regions of the current buffer instead (starting with the output
+region following point). Arguments:
  1) alist whose keys are names of properties/columns, and whose values are sexps to be evaluated in the buffer
-    and which return the associated string value or nil if no appropriate value could be found
+    and which return the associated string value or nil if no
+    appropriate value could be found
  2) number indicating how many succesive comint output regions to process
 
-This could work by putting the output regions into hidden buffers, and calling org-gather-from-buffers
+This could work by putting the output regions into hidden buffers, and
+calling org-gather-from-buffers
 *** org-gather-from-gnus-articles
-Use `gnus-summary-ext-iterate-articles-safely' to loop over articles corresponding to list of article numbers.
-Otherwise works the same as `org-gather-from-buffers', and has the same arguments.
+Use `gnus-summary-ext-iterate-articles-safely' to loop over articles
+corresponding to list of article numbers. Otherwise works the same as
+`org-gather-from-buffers', and has the same arguments.
 *** org-gather-from-list
 Apply functions to each item in list in order to get values.
 Arguments:
@@ -59,7 +57,7 @@ Arguments:
  2) alist whose keys are names of properties/columns, and whose values are functions of 1 argument. 
     Each function takes an item from the list and returns a string.
 *** org-gather-from-files
-Application of `org-gather-from-buffers'. 
+Application of `org-gather-from-buffers'.
 *** org-gather-from-urls
 AAltered items: Argumentspplication of `org-gather-from-files'
 ** Displaying functions
