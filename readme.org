@@ -86,5 +86,5 @@ passed to either `org-gather-into-property-tree' or
 
 
 * update
-(progn (vc-checkin '("~/programming_projects/org-gather/readme.org")
-'Git nil "update") (magit-push))
+(progn (vc-checkin '("~/programming_projects/org-gather/readme.org") 
+ Altered items: Arguments 'Git nil "update") (magit-push))
