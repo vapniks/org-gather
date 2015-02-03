@@ -59,7 +59,7 @@ Arguments:
 *** org-gather-from-files
 Application of `org-gather-from-buffers'.
 *** org-gather-from-urls
-AAltered items: Argumentspplication of `org-gather-from-files'
+Application of `org-gather-from-files'
 ** Displaying functions
 Each of these functions should take 2 arguments:
  1) a list of column/property names
@@ -87,4 +87,4 @@ passed to either `org-gather-into-property-tree' or
 
 * update
 (progn (vc-checkin '("~/programming_projects/org-gather/readme.org") 
- Altered items: Arguments 'Git nil "update") (magit-push))
+  'Git nil "update") (magit-push))
