@@ -4,6 +4,7 @@ The general idea is to have functions for gathering data from various places and
 The rows/headers of the output table/tree correspond to different items, and the columns/properties correspond to different
 pieces of data for each item. 
 The code is split into two tasks: gathering data and displaying data. These are explained below.
+I have given priorities to the functions with [#A] being most important, and [#D] being least important for now.
 ** Gathering functions
 These functions take 2 arguments:
  1) a list of items or a single item from which to gather the data
@@ -50,6 +51,7 @@ calling org-gather-from-buffers
 *** [#D] org-gather-from-gnus-articles
 Use `gnus-summary-ext-iterate-articles-safely' to loop over articles corresponding to list of article numbers. 
 Otherwise works the same as `org-gather-from-buffers', and has the same arguments.
+I will write this function.
 *** [#B] org-gather-from-list
 Apply functions to each item in list in order to get values.
 Arguments:
@@ -68,7 +70,7 @@ Each of these functions should take at least 2 arguments:
     as the 1st argument. 
 
 *** [#D] org-gather-create-table
-I have already written this function.
+I will write this function.
 *** [#A] org-gather-create-tree
 Given a list of property names and a list of value lists create org headers for each list with appropriate names & properties.
 The title of each header is given by the OG-TITLE property, and the contents (which come after properties) is given by the
@@ -77,6 +79,7 @@ OG-CONTENTS property.
 This function takes a third argument which is the name of an org table, as defined by the #+TBLNAME property.
 It then updates the columns of the table according to the contents of the first 2 arguments.
 It does not change any existing columns that are not listed in the first argument to the function.
+I will write this function.
 *** [#D] org-gather-update-tree
 This function takes as input the 2 previously mentioned arguments.
 It looks for headers in the current buffer matching the OG-TITLE property of the lists of the 2nd argument.
