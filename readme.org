@@ -16,7 +16,7 @@ there may also be other arguments (see the function descriptions below).
 
 Return value: a list of lists which can be used by the display functions for displaying the data.
 Each list in the output should contain the values for the corresponding table row or header. 
-*** org-gather-from-single-buffer
+*** [#A] org-gather-from-single-buffer
 Arguments:
  1) A buffer or buffer name
  2) alist whose keys are names of properties/columns, and whose values are sexps to be evaluated in the buffer
@@ -26,7 +26,7 @@ Arguments:
             or point-max is reached in buffer
     - number N : loop over properties N times (so that N output lists are returned)
     - anything else : error
-*** org-gather-from-buffers
+*** [#B] org-gather-from-buffers
 Application of `org-gather-from-single-buffer' - just loop over list of buffers
 Arguments:
  1) List of buffers
@@ -37,7 +37,7 @@ Arguments:
     - number N : in each buffer loop over properties N times (so that each buffer produces N output lists)
     - anything else : in each buffer loop over properties repeatedly until a nil value is returned for one of the properties,
                       or point-max is reached in buffer
-*** org-gather-from-comint-outputs
+*** [#B] org-gather-from-comint-outputs
 This works like `org-gather-from-buffers' but using succesive comint output regions of the current buffer instead 
 (starting with the output region following point). 
 Arguments:
@@ -47,32 +47,42 @@ Arguments:
 
 This could work by putting the output regions into hidden buffers, and
 calling org-gather-from-buffers
-*** org-gather-from-gnus-articles
+*** [#D] org-gather-from-gnus-articles
 Use `gnus-summary-ext-iterate-articles-safely' to loop over articles corresponding to list of article numbers. 
 Otherwise works the same as `org-gather-from-buffers', and has the same arguments.
-*** org-gather-from-list
+*** [#B] org-gather-from-list
 Apply functions to each item in list in order to get values.
 Arguments:
  1) List of items
  2) alist whose keys are names of properties/columns, and whose values are functions of 1 argument. 
     Each function takes an item from the list and returns a string.
-*** org-gather-from-files
+*** [#C] org-gather-from-files
 Application of `org-gather-from-buffers'.
-*** org-gather-from-urls
+*** [#D] org-gather-from-urls
 Application of `org-gather-from-files'
 ** Displaying functions
-Each of these functions should take 2 arguments:
+Each of these functions should take at least 2 arguments:
  1) a list of column/property names. The elements OG-TITLE and OG-CONTENTS will be used by `org-gather-create-tree'
     to indicate the title and contents of each branch, but will be ignored by `org-gather-create-table'
  2) a list of value lists. Each value list contains the column/property values for a row/header in the same order
     as the 1st argument. 
 
-*** org-gather-create-table
+*** [#D] org-gather-create-table
 I have already written this function.
-*** org-gather-create-tree
+*** [#A] org-gather-create-tree
 Given a list of property names and a list of value lists create org headers for each list with appropriate names & properties.
 The title of each header is given by the OG-TITLE property, and the contents (which come after properties) is given by the
 OG-CONTENTS property.
+*** [#D] org-gather-update-table
+This function takes a third argument which is the name of an org table, as defined by the #+TBLNAME property.
+It then updates the columns of the table according to the contents of the first 2 arguments.
+It does not change any existing columns that are not listed in the first argument to the function.
+*** [#D] org-gather-update-tree
+This function takes as input the 2 previously mentioned arguments.
+It looks for headers in the current buffer matching the OG-TITLE property of the lists of the 2nd argument.
+It then updates the information in those headers accordingly, without changing any properties that were not
+given as an argument to the function. New headers will be created for any items of the 2nd argument that don't
+have existing headers in the current buffer.
 ** User customizable options
 *** org-gather-saved-functions
 This should be a list of named functions that will be put in scope when gathering data.
